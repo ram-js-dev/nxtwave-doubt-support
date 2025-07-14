@@ -7,6 +7,7 @@ import AuthContext from '../context/AuthContext'
 
 import logo from '../images/logo.png'
 import invitationSound from '../sounds/invitationAudio.mp3'
+import { BASE_URL } from '../constants'
 
 const StudentLayout = () => {
     const [invites, setInvites] = useState([])
@@ -19,7 +20,7 @@ const StudentLayout = () => {
 
     const fetchInvitations = async () => {
         setIsLoading(true)
-        const url = `http://localhost:3000/doubts?isNotified=true&status=PENDING&postedBy=${authUser._id}`
+        const url = `${BASE_URL}/doubts?isNotified=true&status=PENDING&postedBy=${authUser._id}`
         const options = {
             headers: {
                 'Content-Type': 'application/json',

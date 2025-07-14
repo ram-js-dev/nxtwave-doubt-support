@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import AuthContext from '../context/AuthContext'
 import validateDoubt from '../validations/validateDoubt'
 import notificationSound from '../sounds/notificationAudio.mp3'
+import { BASE_URL } from '../constants'
 
 const TopicsInput = ({
     isTopicsLoading,
@@ -15,7 +16,7 @@ const TopicsInput = ({
 
     const fetchTopics = async () => {
         setIsTopicsLoading(true)
-        const response = await fetch('http://localhost:3000/topics')
+        const response = await fetch(`${BASE_URL}/topics`)
         const topics = await response.json()
         setTopics(topics.data)
         setIsTopicsLoading(false)
@@ -86,7 +87,7 @@ const DoubtForm = ({ doubt, setDoubts, setIsEditing, closeDoubtModal }) => {
                 body: JSON.stringify(doubtInput),
             }
         } else {
-            url = 'http://localhost:3000/doubts'
+            url = `${BASE_URL}/doubts`
             options = {
                 headers: {
                     'Content-Type': 'application/json',

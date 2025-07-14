@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useOutletContext } from 'react-router'
 import { ChevronRight, CircleHelp, Mailbox, Users, Video } from 'lucide-react'
 import Loading from '../../components/Loading'
+import { BASE_URL } from '../../constants'
 
 const Topic = ({ topic }) => {
     return (
@@ -26,7 +27,7 @@ const TopicsList = () => {
     const [isLoading, setIsLoading] = useState(false)
 
     const fetchTopics = async () => {
-        const response = await fetch('http://localhost:3000/topics')
+        const response = await fetch(`${BASE_URL}/topics`)
         const topics = await response.json()
         setTopics(topics.data)
     }

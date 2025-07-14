@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router'
 import { Link } from 'react-router'
 import ValidationError from '../../components/ValidationError'
 import { validateSignUpData } from '../../validations/validateUser'
+import { BASE_URL } from '../../constants'
 const SignupForm = () => {
     const [signupDetails, setSignupDetails] = useState({
         username: '',
@@ -24,7 +25,7 @@ const SignupForm = () => {
         const errObj = validateSignUpData(signupDetails)
         setError(errObj)
         if (Object.keys(errObj).length) return
-        const url = 'http://localhost:3000/register'
+        const url = `${BASE_URL}/register`
         const options = {
             headers: {
                 'Content-Type': 'application/json',

@@ -1,3 +1,4 @@
+import path from "path";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -7,26 +8,26 @@ import authRoutes from "./routes/auth.route.js";
 import doubtRoutes from "./routes/doubt.route.js";
 import topicRoutes from "./routes/topic.route.js";
 
-
 config();
 
+const __dirname = path.resolve();
 app.use(express.json());
-app.use(cors());
-
-app.get("/", (req, res) => {
-  res.status(200).send({ message: "Hello World!" });
-});
+if (process.env.NODE_ENV !== "production") {
+  app.use(cors());
+}
 
 app.use(authRoutes);
 
 app.use("/doubts", doubtRoutes);
 app.use("/topics", topicRoutes);
 
-app.all(/\/*/, (req, res) => {
-  res.status(404).send({ message: "Route doesnot exist" });
-});
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-
+  app.get(/(.*)/, (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  });
+}
 
 server.listen(process.env.PORT, async () => {
   const dbConn = await mongoose.connect(process.env.CONNECTION_STRING);

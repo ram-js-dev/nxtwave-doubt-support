@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'
 import { validateLoginData } from '../../validations/validateUser'
 import AuthContext from '../../context/AuthContext'
 import ValidationError from '../../components/ValidationError'
+import { BASE_URL } from '../../constants'
 
 const LoginForm = () => {
     const { setAuth } = useContext(AuthContext)
@@ -26,7 +27,7 @@ const LoginForm = () => {
         console.log(errObj)
         setError(errObj)
         if (Object.keys(errObj).length) return
-        const url = 'http://localhost:3000/login'
+        const url = `${BASE_URL}/login`
         const options = {
             headers: {
                 'Content-Type': 'application/json',

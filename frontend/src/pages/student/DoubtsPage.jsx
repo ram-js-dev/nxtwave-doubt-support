@@ -6,6 +6,7 @@ import { formatDistance } from 'date-fns'
 import AuthContext from '../../context/AuthContext'
 import DoubtForm from '../../components/DoubtForm'
 import Loading from '../../components/Loading'
+import { BASE_URL } from '../../constants'
 
 const Doubt = ({ doubt, setDoubts }) => {
     const {
@@ -25,7 +26,7 @@ const Doubt = ({ doubt, setDoubts }) => {
 
     const handleDeleteDoubt = async () => {
         setIsLoading(true)
-        const url = `http://localhost:3000/doubts/${doubt._id}`
+        const url = `${BASE_URL}/doubts/${doubt._id}`
         const options = {
             headers: {
                 'Content-Type': 'application/json',
@@ -139,7 +140,7 @@ const DoubtsPage = () => {
 
     const fetchDoubts = async () => {
         setIsLoading(true)
-        const url = `http://localhost:3000/doubts?postedBy=${authUser._id}&sort=-createdAt`
+        const url = `${BASE_URL}/doubts?postedBy=${authUser._id}&sort=-createdAt`
         const options = {
             headers: {
                 'Content-Type': 'application/json',
