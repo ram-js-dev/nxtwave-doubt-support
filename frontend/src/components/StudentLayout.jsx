@@ -11,6 +11,7 @@ import { BASE_URL } from '../constants'
 
 const StudentLayout = () => {
     const [invites, setInvites] = useState([])
+    const [isInvited, setIsInvited] = useState(false)
 
     const {
         auth: { jwtToken, authUser },
@@ -47,31 +48,31 @@ const StudentLayout = () => {
     useEffect(() => {
         fetchInvitations()
         function onInvite(invite) {
+            setIsInvited(true)
+            setTimeout(() => {
+                setIsInvited(false)
+            }, 5000)
             const audio = new Audio(invitationSound)
-            audio.play().then(() => {
-                if (invite.isInvited) {
-                    setInvites((prevInvites) => [invite, ...prevInvites])
-                    toast('you have a new inviation', {
-                        icon: '🔔',
-                        className: '!text-purple-500',
-                    })
-                } else {
-                    toast('Invitation withdrawn', {
-                        icon: '🔔',
-                        className: '!text-purple-500',
-                    })
-                    setInvites((prevInvites) =>
-                        prevInvites.filter(
-                            (eachInvite) => eachInvite._id !== invite._id
-                        )
-                    )
-                }
+            audio.play()
+            setInvites((prevInvites) => [invite, ...prevInvites])
+            toast('you have a new inviation', {
+                icon: '🔔',
+                className: '!text-purple-500',
             })
         }
+        function onUnInvite(invite) {
+            setInvites((prevInvites) =>
+                prevInvites.filter(
+                    (eachInvite) => eachInvite._id !== invite._id
+                )
+            )
+        }
         socket.on('invite', onInvite)
+        socket.on('un-invite', onUnInvite)
 
         return () => {
             socket.off('invite', onInvite)
+            socket.off('un-invite', onUnInvite)
         }
     }, [])
 
@@ -89,7 +90,9 @@ const StudentLayout = () => {
                     } navbar-end lg:hidden`}
                 >
                     {invites.length > 0 && (
-                        <span className="indicator-item status status-success"></span>
+                        <span
+                            className={`indicator-item status status-success ${isInvited ? 'wobble' : ''}`}
+                        ></span>
                     )}
 
                     <div className="dropdown dropdown-end">
@@ -137,7 +140,9 @@ const StudentLayout = () => {
                     <li>
                         <Link to="/student">
                             Home{' '}
-                            <span className="badge bg-slate-200 text-slate-600">
+                            <span
+                                className={`badge bg-slate-200 text-slate-600 ${isInvited ? 'wobble' : ''}`}
+                            >
                                 {invites.length || 0}
                             </span>
                         </Link>

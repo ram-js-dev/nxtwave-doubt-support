@@ -74,9 +74,17 @@ export const patchDoubt = async (req, res) => {
   if (doubt === null) {
     res.status(404).send({ message: "doubt not found" });
   } else {
-    const socketId = getSocketId(doubt.postedBy._id.toString());
+    const { isInvited } = req.body;
 
-    if (socketId) io.to(socketId).emit("invite", doubt);
+    if (isInvited === true) {
+      const socketId = getSocketId(doubt.postedBy._id.toString());
+
+      if (socketId) io.to(socketId).emit("invite", doubt);
+    } else if (isInvited === false) {
+      const socketId = getSocketId(doubt.postedBy._id.toString());
+
+      if (socketId) io.to(socketId).emit("un-invite", doubt);
+    }
 
     res.status(200).send({
       data: {

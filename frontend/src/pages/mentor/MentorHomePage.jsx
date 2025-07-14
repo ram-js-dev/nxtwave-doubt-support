@@ -38,7 +38,7 @@ const Doubt = ({ doubt, setDoubts }) => {
                 authorization: `Bearer ${jwtToken}`,
             },
             method: 'PATCH',
-            body: JSON.stringify({ status: 'RESOLVED' }),
+            body: JSON.stringify({ status: 'RESOLVED', isInvited: false }),
         }
         const response = await fetch(url, options)
         const { data } = await response.json()
