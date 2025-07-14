@@ -4,11 +4,15 @@ import { Server } from "socket.io";
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: ["http://localhost:5173"],
-  },
-});
+const options =
+  process.env.NODE_ENV !== "production"
+    ? {
+        cors: {
+          origin: ["http://localhost:5173"],
+        },
+      }
+    : {};
+const io = new Server(server, options);
 
 const userSocketMap = new Map();
 
