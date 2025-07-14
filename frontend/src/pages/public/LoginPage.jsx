@@ -24,7 +24,7 @@ const LoginForm = () => {
         e.preventDefault()
         setIsLoading(true)
         const errObj = validateLoginData(loginDetails)
-        console.log(errObj)
+
         setError(errObj)
         if (Object.keys(errObj).length) return
         const url = `${BASE_URL}/login`

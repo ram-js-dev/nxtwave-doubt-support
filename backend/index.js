@@ -31,6 +31,6 @@ if (process.env.NODE_ENV === "production") {
 
 server.listen(process.env.PORT, async () => {
   const dbConn = await mongoose.connect(process.env.CONNECTION_STRING);
-  console.log(dbConn.connection.name);
+
   console.log(`listenting on URL http://localhost:${process.env.PORT}`);
 });

@@ -35,7 +35,7 @@ const SignupForm = () => {
         }
         try {
             const response = await fetch(url, options)
-            console.log(response.ok)
+            
             if (response.ok) {
                 navigate('/login')
             } else {

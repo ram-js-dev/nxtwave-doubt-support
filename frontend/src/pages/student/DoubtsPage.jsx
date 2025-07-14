@@ -1,7 +1,7 @@
-import { useState, useEffect, useContext, useRef } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useOutletContext } from 'react-router'
 
-import { Users, CircleHelp, BookOpen, Pencil, Trash2, X } from 'lucide-react'
+import { BookOpen, Pencil, Trash2, X, ExternalLink } from 'lucide-react'
 import { formatDistance } from 'date-fns'
 import AuthContext from '../../context/AuthContext'
 import DoubtForm from '../../components/DoubtForm'
@@ -73,27 +73,31 @@ const Doubt = ({ doubt, setDoubts }) => {
                     <p className="mb-4 text-base font-medium text-slate-500">
                         {description}
                     </p>
-                    <ul className="menu menu-horizontal px-0">
-                        <li>
-                            <a href={questionURL} target="_blank">
-                                <CircleHelp
-                                    size={16}
-                                    className="text-slate-600"
-                                />
-                                <span className="font-medium text-slate-600">
-                                    Question
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href={discussionURL} target="_blank">
-                                <Users size={16} className="text-slate-600" />
-                                <span className="font-medium text-slate-600">
-                                    Discussion
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
+                    <div className="flex flex-wrap gap-4">
+                        <a
+                            className="badge bg-gray-100 text-slate-600 shadow-sm"
+                            href={doubt.questionURL}
+                            target="_blank"
+                        >
+                            Question
+                            <ExternalLink className="inline" size={16} />
+                        </a>
+                        <a
+                            className="badge bg-gray-100 text-slate-600 shadow-sm"
+                            href={doubt.discussionURL}
+                            target="_blank"
+                        >
+                            Discussion
+                            <ExternalLink className="inline" size={16} />
+                        </a>
+
+                        <span
+                            className={`badge ${doubt.status === 'PENDING' ? 'bg-warning' : 'bg-success'}`}
+                        >
+                            {doubt.status.charAt(0).toUpperCase() +
+                                doubt.status.slice(1).toLowerCase()}
+                        </span>
+                    </div>
                 </div>
             )}
             <div className="ml-auto flex flex-col items-end justify-between">
