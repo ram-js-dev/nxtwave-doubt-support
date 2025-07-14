@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@layer components {
+  .floating-input-label {
+    @apply !bg-purple-400 !text-white !font-bold !px-4 !py-2 !rounded-box;
+  }
+  .custom-input {
+    @apply focus:!border-none focus-within:!border-none focus:!outline-slate-500 !border-slate-400 !border-2;
+  }
+  .error-msg {
+    @apply mt-2 flex items-center;
+  }
+}
