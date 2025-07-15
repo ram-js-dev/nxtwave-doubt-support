@@ -17,7 +17,7 @@ const RootPage = () => {
                     <ExternalLink size={16} className="inline" />
                 </Link>
             </section>
-            <section className="mt-20 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <section className="mt-20 mb-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                 <div className="flex w-xs flex-col items-center gap-2">
                     <h3 className="font-bold text-slate-700">
                         <FilePenIcon className="mr-2 inline" size={16} />

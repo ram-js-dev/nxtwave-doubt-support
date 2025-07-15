@@ -102,12 +102,20 @@ const Doubt = ({ doubt, setDoubts }) => {
                 <button
                     type="button"
                     onClick={handleMarkAsResolved}
-                    className="btn btn-sm rounded bg-purple-500 text-white"
+                    className="btn btn-sm hidden rounded bg-purple-500 text-white sm:inline"
                 >
                     <CircleCheckBig className="mr-1 inline" size={16} /> Mark as
                     resolved
                 </button>
             </div>
+            <button
+                type="button"
+                onClick={handleMarkAsResolved}
+                className="btn mt-4 w-full rounded bg-purple-500 text-white sm:hidden"
+            >
+                <CircleCheckBig className="mr-1 inline" size={16} /> Mark as
+                resolved
+            </button>
         </li>
     )
 }
