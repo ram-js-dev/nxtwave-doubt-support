@@ -77,7 +77,7 @@ const DoubtForm = ({ doubt, setDoubts, setIsEditing, closeDoubtModal }) => {
         let url = ''
         let options = ''
         if (doubt._id) {
-            url = `http://localhost:3000/doubts/${doubt._id}`
+            url = `${BASE_URL}/doubts/${doubt._id}`
             options = {
                 headers: {
                     'Content-Type': 'application/json',
